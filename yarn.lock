@@ -855,10 +855,10 @@
   resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.1.0.tgz#1e3e4bd05c1cc7a0b2ddbd8a03f39f6e4b5e6cfe"
   integrity sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==
 
-"@marcostmunhoz/fastfood-libs@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@marcostmunhoz/fastfood-libs/-/fastfood-libs-0.0.10.tgz#ba75ca57725245dcce117098c0673ae5b451ed7c"
-  integrity sha512-BPlwxcRDjNCEFmc5sJubAUjbxi1AgPmHYSnzsPCVnyFsmpmazciVGX4qjCZmMR6BYpG/bAOZr9RJzD9B0UyRgA==
+"@marcostmunhoz/fastfood-libs@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@marcostmunhoz/fastfood-libs/-/fastfood-libs-0.0.12.tgz#7c9a4149c540b6effe233418cc7d63634346b83e"
+  integrity sha512-bR1Di8+VZB7T/yaUKjpbLWI6q6x0EChpFWMjIyHpCmkpTRGn1NWJG09r1RPZ4q8bETTYl9nDBGnTDayCl6ES5g==
   dependencies:
     "@commitlint/cli" "^19.5.0"
     "@commitlint/config-conventional" "^19.5.0"
