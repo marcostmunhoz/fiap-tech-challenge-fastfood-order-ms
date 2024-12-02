@@ -1,6 +1,8 @@
+import {
+  EntityIdValueObject,
+  OrderStatusEnum,
+} from '@marcostmunhoz/fastfood-libs';
 import { OrderEntity } from '../entity/order.entity';
-import { OrderStatusEnum } from '../enum/order-status.enum';
-import { EntityIdValueObject } from '../value-object/entity-id.value-object';
 
 export interface OrderRepository {
   findById(id: EntityIdValueObject): Promise<OrderEntity | null>;
