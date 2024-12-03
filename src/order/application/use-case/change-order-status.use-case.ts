@@ -3,8 +3,6 @@ import { OrderRepositoryToken } from '@/order/tokens';
 import {
   EntityIdValueObject,
   EntityNotFoundException,
-  ItemQuantityValueObject,
-  MoneyValueObject,
   OrderStatusEnum,
   UseCase,
 } from '@marcostmunhoz/fastfood-libs';
@@ -12,21 +10,12 @@ import { Inject } from '@nestjs/common';
 
 export type Input = {
   id: EntityIdValueObject;
+  status: OrderStatusEnum.PAID | OrderStatusEnum.CANCELED;
 };
 
-export type Output = {
-  id: EntityIdValueObject;
-  items: Array<{
-    code: string;
-    name: string;
-    price: MoneyValueObject;
-    quantity: ItemQuantityValueObject;
-  }>;
-  total: MoneyValueObject;
-  status: OrderStatusEnum;
-};
+export type Output = void;
 
-export class ShowOrderUseCase implements UseCase<Input, Output> {
+export class ChangeOrderStatusUseCase implements UseCase<Input, Output> {
   constructor(
     @Inject(OrderRepositoryToken)
     private readonly orderRepository: OrderRepository,
@@ -39,11 +28,12 @@ export class ShowOrderUseCase implements UseCase<Input, Output> {
       throw new EntityNotFoundException('Order not found with given ID.');
     }
 
-    return {
-      id: order.id,
-      items: order.items,
-      total: order.total,
-      status: order.status,
-    };
+    if (input.status === OrderStatusEnum.PAID) {
+      order.markAsPaid();
+    } else {
+      order.markAsCanceled();
+    }
+
+    await this.orderRepository.save(order);
   }
 }

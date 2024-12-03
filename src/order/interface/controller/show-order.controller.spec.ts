@@ -8,7 +8,6 @@ import {
   createMockGuard,
   getCompleteOrderData,
   getValidOrderItem,
-  mockUser,
 } from '@marcostmunhoz/fastfood-libs';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ShowOrderController } from './show-order.controller';
@@ -40,7 +39,6 @@ describe('ShowOrderController', () => {
   describe('execute', () => {
     it('should return an existing order', async () => {
       // Arrange
-      const user = mockUser;
       const props = getCompleteOrderData();
       const item = getValidOrderItem();
       const order = getDomainOrderEntity({
@@ -49,6 +47,7 @@ describe('ShowOrderController', () => {
       });
       const { id } = order;
       const output: Output = {
+        id: order.id,
         items: order.items,
         total: order.total,
         status: order.status,
@@ -56,12 +55,13 @@ describe('ShowOrderController', () => {
       useCaseMock.execute.mockResolvedValue(output);
 
       // Act
-      const response = await controller.execute(user, { id });
+      const response = await controller.execute({ id });
 
       // Assert
       expect(useCaseMock.execute).toHaveBeenCalledTimes(1);
-      expect(useCaseMock.execute).toHaveBeenCalledWith({ id, user });
+      expect(useCaseMock.execute).toHaveBeenCalledWith({ id });
       expect(response).toEqual({
+        id: order.id.value,
         items: [
           {
             code: item.code,

@@ -6,9 +6,8 @@ import {
 import {
   EntityNotFoundException,
   getValidOrderEntityId,
-  mockUser,
 } from '@marcostmunhoz/fastfood-libs';
-import { Input, Output, ShowOrderUseCase } from './show-order.use-case';
+import { Output, ShowOrderUseCase } from './show-order.use-case';
 
 describe('ShowOrderUseCase', () => {
   let sut: ShowOrderUseCase;
@@ -25,13 +24,14 @@ describe('ShowOrderUseCase', () => {
       const entity = getDomainOrderEntity();
       repository.findById.mockResolvedValue(entity);
       const output: Output = {
+        id: entity.id,
         items: entity.items,
         total: entity.total,
         status: entity.status,
       };
 
       // Act
-      const result = await sut.execute({ id: entity.id, user: mockUser });
+      const result = await sut.execute({ id: entity.id });
 
       // Assert
       expect(repository.findById).toHaveBeenCalledTimes(1);
@@ -45,30 +45,12 @@ describe('ShowOrderUseCase', () => {
       repository.findById.mockResolvedValue(null);
 
       // Act
-      const result = sut.execute({ id, user: mockUser });
+      const result = sut.execute({ id });
 
       // Assert
       expect(result).rejects.toThrow(
         new EntityNotFoundException('Order not found with given ID.'),
       );
-    });
-
-    it('should throw an error if order belongs to another user', async () => {
-      // Arrange
-      const order = getDomainOrderEntity({
-        customerId: 'another-user-id',
-      });
-      const input: Input = {
-        id: getValidOrderEntityId(),
-        user: mockUser,
-      };
-      repository.findById.mockResolvedValue(order);
-
-      // Act
-      const result = sut.execute(input);
-
-      // Assert
-      await expect(result).rejects.toThrow('Unauthorized resource.');
     });
   });
 });

@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AddOrderItemUseCase } from './application/use-case/add-order-item.use-case';
 import { ChangeOrderItemQuantityUseCase } from './application/use-case/change-order-item-quantity.use-case';
+import { ChangeOrderStatusUseCase } from './application/use-case/change-order-status.use-case';
 import { CreateOrderUseCase } from './application/use-case/create-order.use-case';
 import { RemoveOrderItemUseCase } from './application/use-case/remove-order-item.use-case';
 import { ShowOrderUseCase } from './application/use-case/show-order.use-case';
@@ -14,6 +15,7 @@ import { TypeOrmOrderRepository } from './infrastructure/repository/type-orm-ord
 import { HttpProductService } from './infrastructure/service/http-product.service';
 import { AddOrderItemController } from './interface/controller/add-order-item.controller';
 import { ChangeOrderItemQuantityController } from './interface/controller/change-order-item-quantity.controller';
+import { ChangeOrderStatusController } from './interface/controller/change-order-status.controller';
 import { CreateOrderController } from './interface/controller/create-order.controller';
 import { RemoveOrderItemController } from './interface/controller/remove-order-item.controller';
 import { ShowOrderController } from './interface/controller/show-order.controller';
@@ -25,6 +27,7 @@ const useCases: Provider[] = [
   RemoveOrderItemUseCase,
   ChangeOrderItemQuantityUseCase,
   ShowOrderUseCase,
+  ChangeOrderStatusUseCase,
 ];
 const factories = [OrderFactory];
 const tokens: Provider[] = [
@@ -54,6 +57,7 @@ const tokens: Provider[] = [
     RemoveOrderItemController,
     ChangeOrderItemQuantityController,
     ShowOrderController,
+    ChangeOrderStatusController,
   ],
 })
 export class OrderModule {}

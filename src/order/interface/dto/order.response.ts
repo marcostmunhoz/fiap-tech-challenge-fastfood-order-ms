@@ -3,6 +3,7 @@ import {
   OrderStatusEnum,
   TransformObjectKeyOptional,
   TransformValueObjectToPrimitive,
+  UuidProperty,
 } from '@marcostmunhoz/fastfood-libs';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
@@ -24,6 +25,11 @@ class OrderItem {
 }
 
 export class OrderResponse {
+  @Expose()
+  @TransformValueObjectToPrimitive()
+  @UuidProperty()
+  id: string;
+
   @Expose()
   @Type(() => OrderItem)
   @ApiProperty({
